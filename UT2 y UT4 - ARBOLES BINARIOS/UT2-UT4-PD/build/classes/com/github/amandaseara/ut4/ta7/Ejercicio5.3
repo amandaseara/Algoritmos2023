@@ -1,0 +1,32 @@
+#EJERCICIO 5.3 
+
+Modifica el algoritmo del ejercicio 5.2 para que cumpla con la siguiente firma.
+
+encuentraLinealTres(nombreAtributo, valorAtributo): devuelve la referencia al primer 
+elemento encontrado, y nulo en caso contrario
+
+RESPUESTA:
+
+LN:
+PRECONDICION:
+POSTCONDICION:
+
+    funcion encuentraLinealTres(nombreAtributo, valorAtributo): devuelve la referencia al primer 
+    elemento encontrado, y nulo en caso contrario
+    COM
+        SI esto.nombreAtributo = valorAtributo ENTONCES
+            devolver this
+        FINSI
+
+        Nodo res <- nulo
+
+        SI hijoIzq != null ENTONCES
+            res <- hijoIzq.encuentraLinealTres(nombreAtributo, valorAtributo)
+        FINSI
+
+        SI res != null Y hijoDer != null ENTONCES
+            devolver hijoDer.encuentraLinealTres(nombreAtributo, valorAtributo)
+        FINSI
+
+        devolver res
+    FIN

@@ -1,0 +1,33 @@
+#EJERCICIO 2
+
+1. Desarrolla en seudocódigo, en forma recursiva, el algoritmo Algoritmo SumaLineal(A, n), que se describe en 
+la ppt de clase sobre recursividad. 
+• Identifica claramente el caso base y la sentencia que lo contempla.
+• ¿Puedes verificar que siempre el algoritmo progresará hacia el caso base?
+
+RESPUESTA:
+public static int SumaLineal(A de tipo arreglo de entero, n de tipo entero mayor o igual a 1): Suma de los primeros n enteros de A
+COM
+    SI n = 1
+        devolver A[0]                           ---> Caso base: Si solo hay un numero que sumar se devuelve ese numero sin recursion
+    SINO
+        devolver SumaLineal(A, n - 1) + A[n - 1]
+    FINSI
+FIN
+
+2. Analiza el orden del tiempo de ejecución del algoritmo
+
+RESPUESTA:
+COM                                                                    _
+    SI n = 1                                         ---> O(1)          |
+        devolver A[0]                                    ---> O(1)      |
+    SINO                                                                | ---> O(n)
+        devolver SumaLineal(A, n - 1) + A[n - 1]         ---> O(n)      |
+    FINSI                                                              _|
+FIN
+
+3. Implementa el algoritmo (en JAVA) y pruébalo:
+• ¿Qué sucede si el parámetro n es negativo?
+• ¿Qué sucede si el vector A está vacío?
+
+RESPUESTA: en la clase SumaLineal

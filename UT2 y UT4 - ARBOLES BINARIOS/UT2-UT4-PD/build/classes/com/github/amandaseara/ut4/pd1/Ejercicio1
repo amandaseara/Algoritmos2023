@@ -1,0 +1,35 @@
+#EJERCICIO 1
+
+Dada la siguiente lista de claves, insértelas en un ÁRBOL BINARIO DE BÚSQUEDA, siguiendo el 
+seudocódigo de inserción indicado en material de lectura “arboles_binarios.pdf”.
+
+    T,Y,U,P,L,K,J,S,A,Z,X,C,V,N
+
+¿Cuál de las siguientes afirmaciones es correcta?
+a) El árbol tiene altura 7.
+b) “Y” es ancestro de “C”.
+c) “X” es descendiente de “P”.
+d) “S” es una hoja.
+
+RESPUESTA: d
+
+En el árbol resultante (indica la respuesta correcta y analiza por qué las demás no lo son):
+a) El árbol tiene cinco hojas.
+b) “V” es descendiente de “S”
+c) “K” es hermano de “J”
+d) “A” y “X” están al mismo nivel
+
+RESPUESTA:
+a -> INCORRECTA, el arbol tiene 6 hojas.
+b -> INCORRECTA, "S" es una hoja sin descendientes.
+c -> INCORRECTA, "k" es ancestro de "J".
+d -> INCORRECTO, "A" esta en el nivel 5 y "X" esta en el nivel 3.
+
+Para imprimir las claves en orden lexicográfico basta con (indica la respuesta correcta y analiza
+por qué las demás no lo son)
+a) recorrer el árbol en PREORDEN.
+b) recorrer el árbol en POSTORDEN.
+c) recorrer el árbol en INORDEN.
+d) debe recorrerse el árbol POR NIVELES.
+
+RESPUESTA: c

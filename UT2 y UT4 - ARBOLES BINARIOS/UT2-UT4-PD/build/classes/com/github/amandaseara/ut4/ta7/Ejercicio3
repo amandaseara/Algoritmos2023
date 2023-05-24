@@ -1,0 +1,15 @@
+#EJERCICIO 3
+ 
+De tipo entero TipoElementoAB.algoritmoTres()
+Comienzo
+    x  0; y  0;
+    Si hijoIzquierdo <> nulo entonces
+        x hijoIzquierdo.algoritmoTres()
+    fin si
+    Si hijoDerecho <> nulo entonces
+        y  hijoDerecho.algoritmoTres()
+    fin si
+    devolver x + y + (entero)etiqueta
+Fin
+
+RESULTADO: 49

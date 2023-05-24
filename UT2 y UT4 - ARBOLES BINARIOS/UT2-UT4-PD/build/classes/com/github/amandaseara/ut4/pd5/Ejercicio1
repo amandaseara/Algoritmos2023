@@ -1,0 +1,303 @@
+#EJERCICIO 1
+
+ESCENARIO:
+    Estos ejercicios tratan del desarrollo de algoritmos en seudocódigo y análisis del tiempo de 
+    ejecución correspondiente para el TDA ArbolBinarioBusqueda – TArbolBB- (y el 
+    correspondiente TDA ElemntoArbolBinariobBusqueda – TElementoABB)
+
+Operaciones Complementarias – seudocódigo y análisis
+
+    1. Obtener la menor clave del árbol.
+    2. Obtener la mayor clave del árbol.
+    3. Obtener la clave inmediata anterior a una clave dada (pasada por parámetro)
+    4. Obtener la cantidad de nodos de un nivel dado (por parámetro)
+    5. Listar todas las hojas cada una con su nivel.
+    6. Verificar si el árbol es de búsqueda.
+
+De acuerdo a los lineamientos para desarrollo de algoritmos en seudocódigo presentados en 
+clase, desarrolla (SIGUIENDO LOS PASOS EN EL ORDEN INDICADO):
+
+    1. Descripción en lenguaje natural del algoritmo solicitado
+    2. Identificación de precondiciones y postcondiciones correspondientes
+    3. Descripción en lenguaje natural de los casos de prueba correspondientes a cada 
+    operación
+    4. Escritura del algoritmo en seudocódigo formal (RECUERDA ESCRIBIR CORRECTAMENTE
+    LAS FIRMAS DE LAS OPERACIONES)
+    5. Análisis detallado del orden del tiempo de ejecución del algoritmo.
+
+RESPUESTA:
+
+/////////////////////GET MENOR ETIQUETA/////////////////////////////////////////
+
+                        Arbol:
+
+LN: Verifica si el arbol esta vacio:
+    * Si lo esta retorna nulo.
+    * Si no lo esta, mientras el hijo izquierdo no sea nulo recorre el subarbol izquierdo hasta llegar a la hoja mas a la
+    izquierda y devuelve este nodo.
+PRECONDICIONES: * El arbol debe existir.
+POSTCONDICIONES: * El arbol no sera modificado.
+
+funcion getMenorEtiqueta(): Comparable
+COM
+
+    SI esVacio() ENTONCES
+        devolver nulo
+    FINSI
+
+    Elemento temp <- this.raiz
+    MIENTRAS temp.getHijoIzq() != null HACER
+        temp <- temp.getHijoIzq()
+    FINMIENTRAS
+
+    devolver temp.getEtiqueta()
+
+FIN
+
+
+
+
+////////////////////GET MAYOR ETIQUETA//////////////////////////////////////////
+
+                        Arbol:
+
+LN: Verifica si el arbol esta vacio:
+    * Si lo esta retorna nulo.
+    * Si no lo esta, mientras el hijo derecho no sea nulo recorre el subarbol derecho hasta llegar a la hoja mas a la
+    derecha y devuelve este nodo.
+PRECONDICIONES: * El arbol debe existir.
+POSTCONDICIONES: * El arbol no sera modificado.
+
+funcion getMayorEtiqueta(): Comparable
+COM
+
+    SI esVacio() ENTONCES
+        devolver nulo
+    FINSI
+
+    Elemento temp <- this.raiz
+    MIENTRAS temp.getHijoDer() != nulo HACER
+        temp <- temp.getHijoDer()
+    FINMIENTRAS
+
+    devolver temp.getEtiqueta()
+
+FIN
+
+
+
+
+///////////////////////ANTERIOR A///////////////////////////////////////////////
+
+                        Arbol:
+
+LN: Se verifica si el arbol esta vacio, si lo esta se devuelve nulo, si no lo esta se devuelve el resultado de la llamada
+    al metodo anteriorA(etiqueta) en la raiz del arbol.
+PRECONDICIONES: * Debe existir el arbol.
+POSTCONDICIONES: * El arbol no sera modificado.
+
+funcion anteriorA(etiqueta): Comparable
+COM
+
+    SI esVacio() ENTONCES
+        devolver nulo
+    FINSI
+
+    devolver this.raiz.anteriorA(etiqueta)
+
+FIN
+
+                        Nodo:
+
+LN: Se verifica si la clave es mayor o menor al nodo al que estoy apuntando:
+    * Si la clave es menor y el hijo izquierdo al nodo no es nulo, si la etiqueta del hijo izquierdo es igual a la clave 
+    buscada se devuelve este nodo, sino se devuelve el resultado de la llamada recursiva del metodo anteriorA(etiqueta) en
+    el hijo izquierdo.
+    * Si la clave es mayor y el hijo derecho al nodo no es nulo, si la etiqueta del hijo derecho es igual a la clave 
+    buscada se devuelve este nodo, sino se devuelve el resultado de la llamada recursiva del metodo anteriorA(etiqueta) en
+    el hijo derecho.
+PRECONDICIONES: * Debe existir el nodo.
+POSTCONDICIONES: * El nodo no sera modificado.
+
+funcion anteriorA(etiqueta): Comparable
+COM
+
+    SI etiqueta < this.etiqueta ENTONCES
+        SI this.hijoIzq != nulo ENTONCES
+            SI this.hijoIzq().etiqueta = etiqueta ENTONCES
+                devolver this.etiqueta
+            SINO
+                devolver this.hijoIzq.anteriorA(etiqueta)
+            FINSI
+        FINSI
+    FINSI
+
+    SI etiqueta > this.etiqueta ENTONCES
+        SI this.hijoDer != nulo ENTONCES
+            SI this.hijoDer.etiqueta = etiqueta ENTONCES
+                devolver this.etiqueta
+            SINO
+                devolver this.hijoDer.anteriorA(etiqueta)
+            FINSI
+        FINSI
+    FINSI
+
+    devolver nulo
+
+FIN
+
+
+
+
+//////////////////////NODOS EN NIVEL////////////////////////////////////////////
+
+                        Arbol:
+
+LN: Verifica si el arbol es vacio, si lo es devuelve el entero 0, si no lo es devuelve el resultado de la llamada del metodo
+    nodosEnNivel(nivel) en la raiz.
+PRECONDICIONES: * El arbol debe existir.
+POSTCONDICIONES: * El arbol no sera modificado.
+
+funcion nodosEnNivel(Entero nivel): Entero
+COM
+
+    SI esVacio() ENTONCES
+        devolver 0
+    FINSI
+
+    devolver this.raiz.nodosEnNivel(nivel)
+
+FIN
+
+                        Nodo:
+
+LN: Verifica si el parametro nivel es igual a 0 y si lo es devuelve 1.
+    Luego crea la variable suma = 0, verifica si el hijo izquierdo del nodo al que estoy apuntando es distinto de nulo y si
+    no lo es le suma a la variable suma el resultado de la llamada recursiva del metodo NodosEnNivel(nivel-1) en el hijo
+    izquierdo, luego verifica si el hijo derecho del nodo al que estoy apuntando es distinto de nulo y si no lo es le suma
+    a la variable suma el resultado de la llamada recursiva del metodo NodosEnNivel(nivel-1) en el hijo derecho.
+    Devuelve la variable suma.
+PRECONDICIONES: * El nodo debe existir.
+POSTCONDICIONES: * El nodo no sera modificado.
+
+funcion nodosEnNivel(Entero nivel): Entero
+COM
+
+    SI nivel = 0 ENTONCES
+        devolver 1
+    FINSI
+
+    Entero suma <- 0
+
+    SI this.hijoIzq != nulo ENTONCES
+        suma <- suma + this.hijoIzq.nodosEnNivel(nivel-1)
+    FINSI
+
+    SI this.hijoDer != nulo ENTONCES
+        suma <- suma + this.hijoDer.nodosEnNivel(nivel-1)
+    FINSI
+
+    devolver suma
+
+FIN
+
+
+
+
+/////////////////////HOJAS CON NIVEL////////////////////////////////////////////
+
+                        Arbol:
+
+LN: Verifica si el arbol es vacio, si lo es devuelve el string "Arbol vacio", si no lo es se devuelve el resultado de la
+    llamada al metodo hojasConNivel(0) en la raiz del arbol.
+PRECONDICIONES: * El arbol debe existir.
+POSTCONDICIONES: * El arbol no sera modificado.
+
+funcion hojasConNivel(): String
+COM
+
+    SI esVacio() ENTONCES
+        devolver "Arbol vacío"
+    FIN
+
+    devolver this.raiz.hojasConNivel(0)
+
+FIN
+
+                        Nodo:
+
+LN:
+PRECONDICIONES: * Debe existir el nodo.
+POSTCONDICIONES: * El nodo no sera modificado.
+
+funcion hojasConNivel(Entero nivelActual): String
+COM
+
+    SI this.hijoIzq = nulo && this.hijoDer = nulo ENTONCES
+        devolver ", "+this.datos+" - "+nivelActual
+    FINSI
+
+    String res <- ""
+
+    SI this.hijoIzq != nulo ENTONCES
+        res <- res + this.hijoIzq.hojasConNivel(nivelActual + 1)
+    FINSI
+
+    SI this.hijoDer != nulo ENTONCES
+        res <- res + this.hijoDer.hojasConNivel(nivelActual + 1)
+    FINSI
+
+    devolver res
+
+FIN
+
+
+
+
+//////////////////////DE BUSQUEDA///////////////////////////////////////////////
+
+                        Arbol:
+
+LN:
+PRECONDICIONES:
+POSTCONDICIONES:
+
+funcion deBusqueda(): Valor de verdad
+COM
+
+    SI esVacio() ENTONCES
+        devolver true
+    FINSI
+
+    devolver this.raiz.deBusqueda()
+
+FIN
+
+                        Nodo:
+
+LN:
+PRECONDICIONES:
+POSTCONDICIONES:
+
+funcion deBusqueda(): Valor de verdad
+COM
+
+    SI this.hijoIzq != nulo ENTONCES
+        SI this.hijoIzq.etiqueta >= this.etiqueta ENTONCES
+            devolver falso
+        FINSI
+
+        devolver this.hijoIzq.deBusqueda()
+    FINSI
+
+    SI this.hijoDer != nulo ENTONCES
+        SI this.hijoDer.etiqueta <= this.etiqueta ENTONCES
+            devolver falso
+        FINSI
+
+        devolver this.hijoDer.deBusqueda()
+    FINSI
+
+    devolver verdadero
+
+FIN

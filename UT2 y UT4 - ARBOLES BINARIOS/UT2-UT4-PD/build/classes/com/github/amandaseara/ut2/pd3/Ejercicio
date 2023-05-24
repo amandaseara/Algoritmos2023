@@ -1,0 +1,62 @@
+#EJERCICIO
+
+Realiza y documenta detalladamente la resolución de los siguientes ejercicios del capítulo 5 “Análisis de Algoritmos” 
+del libro “Estructuras de Datos en Java” de Mark Allen Weiss:
+
+• 5.4: Suponga que T1(N) = O(F(N)) y T2(N) = O(F(N)).
+¿Cuáles de las siguientes aflrmaclones son ciertas?
+
+A) T1(N) + T2(N) = O(F(N))    ---> VERDADERO
+B) T1(N) - T2(N) = O(F(N))    ---> VERDADERO
+C) T1(N) / T2(N) = O(1)       ---> FALSO
+D) T1(N) = O(T2(N))           ---> FALSO
+
+
+• 5.5: Resolver un problema requiere ejecutar un algoritmo O(N) y después un segundo 
+algoritmo O(N). ¿Cuáles el coste total de resolver el problema?
+
+---> El coste total es O(N)
+
+• 5.6:  Agrupe las siguientes funciones según su equivalencia desde el punto de vista del 
+analisis O mayúscula: 
+X^2, X, X^3 + X, X^2 - X y (x^4 / (X - 1))
+
+---> x, x^2, X^2, x^3, X^3
+
+• 5.12: Un algoritmo requiere 0,4 ms para un tamaño de entrada de 100. ¿Cuánto tiempo 
+requerirá para un tamaño de entrada igual a 500 (suponiendo que los términos de 
+menor orden sean despreciables), si el tiempo de ejecución es:
+
+A) lineal?          ---> 2ms
+B) O(NlogN)? 
+C) cuadrático?      ---> 31.6 ms
+D) cúbico?          ---> 79.37
+
+• 5.13: Para los algoritmos tipicos que emplee para realizar cálculos a mano, determine el 
+tiempo de ejecución recesarto para 
+A) Sumar dos enteros de N digitos. 
+B) Multiplicar dos enteros de N digitos.
+
+int a;            ---> O(1)
+int b;            ---> O(1)
+int suma = a + b; ---> O(1)
+int mult = a * b; ---> O(1)
+
+• 5.15: Para 1.000 elementos nuestro algoritmo tarda 1O segundos en ejecutarse en la 
+máqulna A, pero ahora sustituimos la máquina A por la máquina B que es 3 veces 
+más rápida. ¿Aproximadamente cuánto tiempo tardará el algoritmo en ejecutarse en 
+la máquina B para 2.500 elementos sl el algoritmo es: 
+
+A) lineal?        ---> 3 veces mas rapido
+B) cuadrátlco?
+C) O(N^3)? 
+D) O(NlogN)?
+
+• 5.16: Un algoritmo requiere un tiempo de ejecución de 0,5 ms para un tamaño de entrada 
+igual a lOO. ¿Qué tamaño de problema puede resolverse en un minuto (suponiendo 
+que los términos de orden Inferior sean despreciables) si el tiempo de ejecución es: 
+
+A) lineal?        ---> 12000000
+B) O(NlogN)? 
+C) cuadrático?    ---> 
+D) cúbico? 

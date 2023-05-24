@@ -1,0 +1,15 @@
+#EJERCICIO 1
+
+De tipo entero TipoElementoAB.algoritmoUno()
+Comienzo
+    x  -1; y  -1;
+    Si hijoIzquierdo <> nulo entonces
+        hijoIzquierdo.algoritmoUno()
+    finsi si
+    Si hijoDerecho <> nulo entonces
+        hijoDerecho.algoritmoUno()
+    fin si
+    devolver máximo (x+1, y+1)
+Fin
+
+RESULTADO: 3

@@ -1,0 +1,34 @@
+#EJERCICIO 3
+
+1. Desarrolla en seudocódigo, en forma recursiva, un algoritmo para calcular la potencia de un número. El 
+mismo ha de recibir como parámetros el número y el exponente (ver la ppt de clase sobre recursividad). 
+• Identifica claramente el caso base y la sentencia que lo contempla.
+• ¿Puedes verificar que siempre el algoritmo progresará hacia el caso base?
+
+RESPUESTA:
+public static int potencia(int numero, int exponente)
+COM
+    SI (exponente == 0)
+        devolver 1;      ---> Caso base: el factorial de un numero elevado a 0 es 1 y no es necesario hacer recursividad.
+    SINO
+        devolver (numero * factorial(numero, exponente - 1));
+    FINSI
+FIN
+
+2. Analiza el orden del tiempo de ejecución del algoritmo.
+
+RESPUESTA:
+public static int factorial(int numero, int exponente)
+COM                                                                         _
+    SI (exponente == 0)                                       ---> O(1)      |
+        devolver 1;                                              ---> O(1)   |
+    SINO                                                                     | ---> O(n)
+        devolver (numero * factorial(numero, exponente - 1));    ---> O(n)   |
+    FINSI                                                                   _|
+FIN
+
+3. Implementa el algoritmo (en JAVA) y pruébalo:
+• ¿Tu algoritmo soporta números reales o sólo enteros – para ambos parámetros?
+• ¿qué sucede si uno, otro o ambos parámetros son negativos?
+
+RESPUESTA: En la clase Potencia

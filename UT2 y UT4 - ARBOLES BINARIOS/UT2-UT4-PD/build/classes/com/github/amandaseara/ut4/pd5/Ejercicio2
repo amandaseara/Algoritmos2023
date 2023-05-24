@@ -1,0 +1,13 @@
+#EJERCICIO 2
+
+Implementar en JAVA, dentro de los TDA señalados, las operaciones indicadas, COMENZANDO 
+SIEMPRE POR ESCRIBIR LOS TEST CASES CORRESPONDIENTES:
+
+    1. Obtener la menor clave del árbol.
+    2. Obtener la mayor clave del árbol.
+    3. Obtener la clave inmediata anterior a una clave dada (pasada por parámetro)
+    4. Obtener la cantidad de nodos de un nivel dado (por parámetro)
+    5. Listar todas las hojas cada una con su nivel.
+    6. Verificar si el árbol es de búsqueda.
+
+RESPUESTA: en las clases 
