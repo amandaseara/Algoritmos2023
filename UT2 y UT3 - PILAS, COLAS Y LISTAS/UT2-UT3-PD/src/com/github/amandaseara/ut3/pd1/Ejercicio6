@@ -1,0 +1,27 @@
+#EJERCICIO 6
+
+Escenario:
+Se desea llevar un registro de asistencia de un cierto curso universitario, el cual contará con 
+una cantidad no determinada inicialmente de alumnos. Para ello, se ha decidido utilizar una 
+lista para representar los alumnos en este curso. 
+Cada elemento de la lista entonces tendrá un identificador del alumno y un campo que se ha 
+de incrementar cada vez que el alumno concurra a una clase. También se desea registrar el 
+total de clases impartidas en el curso, y con este dato luego para cada alumno obtener el 
+porcentaje de asistencia a las clases. 
+Las listas pueden implementarse físicamente de dos formas básicas: utilizando un array, o 
+armando una lista encadenada. Se desea la opinión experta de tu Equipo para determinar qué 
+utilizar para resolver eficientemente el problema planteado. 
+
+a) ¿Cuál es el costo de memoria en cada caso?
+
+b) ¿Cuáles son las consideraciones que tu Equipo haría referentes a la cantidad de 
+alumnos del curso que soporta cada tipo de estructura? (puedes considerar que, como 
+en la UCU, las inscripciones al curso suelen estar habilitadas desde varias semanas 
+antes de empezar el curso hasta dos semanas después de haber comenzado)
+
+RESPUESTA: Decido utilizar arreglos porque aunque no sabemos cuantos alumnos van a cursar podemos calcular un maximo
+por la capacidad de los salones, ponemos como maximo la capacidad de personas del salon mas grande. Ademas en los arreglos el orden de agregar un nuevo estudiante es menos que en una lista enlazada,
+esto considerando que van a haber mas inscripciones que dadas de baja.
+    El costo de la lista seria, el costo de cada nodo Alumno multiplicado por la capicidad de personas del salon mas grande.
+    El costo de cada nodo alumno es el costo del id + costoAsistencia + costoTotalDeClases, si utilizamos variables int
+cada variable int tiene un costo de 4bytes en Java. Quedando (4bytes*3)*capacidad maxima de personas del salon mas grande.

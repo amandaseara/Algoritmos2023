@@ -1,0 +1,175 @@
+#EJERCICIO
+
+
+## PSEUDOS DE LISTA ##
+
+LN: Se comprueba si la lista esta vacia:
+    * Si lo esta al puntero primero se lo apunta al nuevo nodo.
+    * Sino se recorre la lista hasta llegar al ultimo nodo y a este ultimo se le asigna como siguiente el nuevo nodo.
+PRECONDICION: * La lista debe existir.
+              * El nodo a ser agregado debe existir.
+              * El parametro siguiente del nuevo nodo debe ser nulo.
+POSTCONDICION: * Se modifica la lista de modo que se agrega un nuevo nodo al final.
+
+funcion insertar(Nodo nodo):
+COM
+    SI esVacia ENTONCES
+        primero <- nodo
+    SINO
+        Nodo ultimo <- nuevo Nodo
+        ultimo <- primero
+        MIENTRAS ultimo.siguiente <> nulo HACER
+            ultimo <- ultimo.siguiete
+        FINMIENTRAS
+        ultimo.siguiente <- nodo
+        ultimo.setSiguiente(nodo);
+    FINSINO
+FIN
+
+
+
+LN: Se crea un nuevo nodo con los datos recibidos por parametro.
+    Se comprueba si la lista esta vacia:
+    * Si lo esta al puntero primero se lo apunta al nuevo nodo.
+    * Sino se recorre la lista hasta llegar al ultimo nodo y a este ultimo se le asigna como siguiente el nuevo nodo.
+PRECONDICION: * La lista debe existir.
+POSTCONDICION:  *Se crea un nuevo nodo con los datos recibidos por parametro.
+                *Se modifica la lista de modo que se agrega un nuevo nodo al final.
+
+funcion insertar(etiqueta, dato):
+COM
+    Nodo nodo <- nuevo Nodo(etiqueta,dato)
+    SI esVacia ENTONCES
+        primero <- nodo
+    SINO
+        Nodo ultimo <- nuevo Nodo
+        ultimo <- primero
+        MIENTRAS ultimo.siguiente <> nulo HACER
+            ultimo <- ultimo.siguiete
+        FINMIENTRAS
+        ultimo.siguiente <- nodo
+        ultimo.setSiguiente(nodo);
+    FINSINO
+FIN
+
+
+
+LN: Se crea un nodo actual con el valor de primero y se recorre comparando la etiqueta de cada nodo con la clave
+    si se encuentra se devuelve este nodo, si se llega a nulo se devuelve nulo.
+PRECONDICION: * Debe existir la lista.
+POSTCONDICION: * La lista no es modificada.
+
+funcion buscar(clave): nodo
+COM
+    Nodo actual <- primero
+    MIENTRAS actual <> nulo HACER
+        SI actual.etiqueta == clave ENTONCES
+            devolver actual
+        FINSI
+        actual <- actual.siguiente
+    FINMIENTRAS
+    devolver nulo
+FIN
+
+
+
+LN: Se verifica si esta vacia y si lo esta se devuelve falso
+    Se verifica si la estiqueta del primer nodo es igual a la clave, si lo es se le asigna al puntero primero el valor de
+primero.siguente y se devuelve verdadero
+    Se crea un nodo auxiliar igualado a primero, mientras el siguiente a este nodo no es nulo se verifica si el dato del 
+siguiente es igual a la clave, si lo es al nodo se le agrega como siguiente el siguiente al nodo siguiente y se devuelve
+verdadero. Si el nodo auxiliar.siguiente es igual a nulo se deja de recorrer y se devuelve falso.
+PRECONDICIONES: * Debe existir la lista.
+POSTCONDICIONES: * Si la lista no contiene el nodo con la clave pasada por parametro no se modifica, devolviendo falso.
+                 * Si la lista contiene el nodo con la clave pasada por parametro, se modifica la lista eliminando este nodo
+                 y se devuelve verdadero.
+
+funcion eliminar(clave): valor de verdad
+COM
+    SI estaVacia ENTONCES
+        devolver falso
+    FINSI
+    SI primero.etiqueta == clave ENTONCES
+        primero <- primero.siguiente
+        devolver verdadero
+    FINSI
+    Nodo aux <- primero
+    MIENTRAS aux.siguiente <> nulo HACER
+        SI aux.siguiente == clave ENTONCES
+            aux.siguiente <- aux.siguiente.siguiente
+            devolver verdadero
+        FINSI
+        aux <- aux.siguiente
+    FINMIENTRAS
+    devolver falso
+FIN
+
+
+
+LN: Se crea una String y se recorre la lista en totalidad, por cada nodo se agrega su etiqueta al string
+PRECONDICIONES: * Debe existir la lista
+POSTCONDICIONES: * No se modifica la lista.
+
+funcion imprimir: String
+COM
+    imprimir <- ""
+    SI NO estaVacia ENTONCES
+        Nodo aux <- primero
+        MIENTRAS aux <> nulo HACER
+            imprimir += aux.etiqueta
+            aux = aux.siguiente
+        FINMIENTRAS
+    FINSI
+    devolver imprimir;
+FIN
+
+
+
+LN: Se crea una String y se recorre la lista en totalidad, por cada nodo se agrega su etiqueta al string y un separador.
+PRECONDICIONES: * Debe existir la lista
+POSTCONDICIONES: * No se modifica la lista.
+
+funcion imprimir(separador): String
+COM
+    imprimir <- ""
+    SI NO estaVacia ENTONCES
+        Nodo aux <- primero
+        MIENTRAS aux.siguiente <> nulo HACER
+            imprimir += aux.etiqueta
+            imprimir += separador
+            aux = aux.siguiente
+        FINMIENTRAS
+        imprimir += aux.etiqueta
+    FINSI
+    devolver imprimir;
+FIN
+
+
+
+LN: Crea un entero cantidad con valor igual a cero y un nodo auxiliar igualado a primero, se recorre la lista incrementando
+el entero cantidad por cada nodo, se devuelve cantidad.
+PRECONDICION: * Debe existir la lista.
+POSTCONDICION: * Se devuelve la cantidad de nodos.
+
+funcion cantElementos(): Entero
+COM
+    Entero cant <- 0
+    Nodo aux <- primero
+    MIENTRAS aux <> null HACER
+        cant++
+        aux = aux.siguiente
+    FINMIENTRAS
+    devolver cant
+FIN
+
+
+
+LN: Se verifica si el puntero primero esta apuntando a nulo, si lo esta se devuelve verdadero, sino se devuelve falso.
+PRECONDICION: * Debe existir la lista.
+POSTCONDICION: * Si la lista esta vacia se devuelve verdadero.
+               * Si la lista no esta vacia se devuelve falso.
+
+funcion esVacia(): valor de verdad
+COM
+    devolver primero == nulo
+FIN

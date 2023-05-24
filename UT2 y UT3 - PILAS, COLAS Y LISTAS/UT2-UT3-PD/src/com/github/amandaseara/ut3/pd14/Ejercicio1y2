@@ -1,0 +1,44 @@
+LN:Se verifica que la cantidad de elementos en la pila sea menor que la capacidad de la misma, si asi lo es
+   a la posicion "fin" del arreglo se le agrega el elemento, se suma la cantidad de elementos y se reasigna el
+   valor de "fin" a (fin+1)%capacidad. Luego se devuelve verdadero.
+    Si no se cumple la condicion se devuelve falso.
+PRECONDICION: * La cola debe existir.
+              * El elemento debe existir.
+              * La cola debe cumplir con los parametros: numElementos, capacidad, fin, elementos[]
+POSTCONDICION: * La cola se modifica agregando el elemento pasado por parametro.
+               * Si hay espacio en la cola se devuelve verdadero.
+               * Si no hay espacio en la cola se devuelve falso.
+
+funcion PoneEnCola (unElemento): valor de verdad
+COM
+    SI (this.numElementos < this.capacidad) ENTONCES
+        this.elementos[fin] <- unElemento
+        this.numElementos++
+        this.fin = (fin + 1) % this.CAPACIDAD
+        devolver verdadero
+    FINSI
+    devolver falso
+FIN
+
+
+LN: Se verifica si la cola no esta vacia, si lo esta se devuelve nulo, si no lo esta se devuelve el elemento en la 
+   posicion de inicio, se resta el parametro numElementos y se reasigna el valor de inicio como (inicio+1)%capacidad.
+PRECONDICION: * La cola debe existir.
+              * El elemento debe existir.
+              * La cola debe cumplir con los parametros: numElementos, capacidad, inicio, elementos[]
+POSTCONDICION: * La cola se modifica agregando el elemento pasado por parametro.
+               * Si la cola esta vacia se devuelve un elemento nulo.
+               * Si la cola tiene elementos se devuelve el elemento en la posicion inicio.
+
+funcion pop(): unElemento
+COM
+    unElemento elemento <- nulo
+
+    SI (this.numElementos > 0) ENTONCES
+        elemento <- this.elementos[inicio]
+        this.inicio <- (inicio + 1) % this.CAPACIDAD
+        this.numElementos--
+    FINSI
+
+    devolver elemento
+FIN

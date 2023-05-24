@@ -1,0 +1,14 @@
+#EJERCICIO 1
+
+Analiza el orden del tiempo de ejecución del siguiente algoritmo:
+
+    miFunción                                                                                       _
+        Desde i = 1 hasta N-1 hacer                               ---> O(1)         _                |
+            Desde j = N hasta i+1 hacer                              ---> O(1)       |               |
+                Si arreglo[j].clave < arreglo[j-1].clave entonces       ---> O(1)    |               |
+                    Intercambia(arreglo[j], arreglo[j-1])               ---> O(1)    |  ---> O(n-i)  |   ---> O(n*(n-1))
+                Fin si                                                               |         = O(n)|                = O(n^2)
+            Fin desde                                                               _|               |  ---> n = largo del arreglo
+        Fin desde                                                                                   _|
+    Fin 
+                                                                  --------> La funcion es O(n^2)

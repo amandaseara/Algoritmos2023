@@ -1,0 +1,20 @@
+#EJERCICIO
+
+#Parte1 y #Parte2
+
+RESPUESTA: en las clases adjuntas.
+
+
+#Parte3
+
+RESPUESTA: Arraylist utiliza un array por detras, mientras que la lista debe guardar un puntero al siguiente
+          nodo para cada nodo menos el ultimo.
+
+
+#Parte4
+
+RESPUESTA: * agregar: O(1)
+           * buscar: O(N)
+           * remover: O(N)
+           * cantidad: O(1)
+           * vacio: O(1)

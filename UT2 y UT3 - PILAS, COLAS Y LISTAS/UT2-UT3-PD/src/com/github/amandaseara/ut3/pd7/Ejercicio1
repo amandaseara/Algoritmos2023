@@ -1,0 +1,51 @@
+#EJERCICIO 1
+
+LN: Dados dos conjuntos A y B y un nuevo conjunto C, se recorre A y B, y cada elemento se agrega a C.
+PRECONDICION: * Debe existir el conjunto A.
+              * Debe existir el conjunto B.
+POSTCONDICION: * Los conjuntos A y B permanecen sin modificaciones.
+               * La cantidad de elementosen el conjunto C es igual a la suma de las cantidades de los conjuntos A y B.
+
+funcion union(otroConjunto): Conjunto
+COM
+    Conjunto conjunto <- nuevo Conjunto                                     ---> O(1)
+    Nodo nodo <- this.lista.primero                                         ---> O(1)
+    MIENTRAS nodo <> nulo HACER                                             _________________________________________
+        conjunto.lista.insertar(nuevo Nodo(nodo.etiqueta, nodo.dato))         ---> O(M) - M = tamaño de conjunto C   |
+        nodo <- nodo.siguiente                                                ---> O(1)                              | -->  O(N*M) - N = tamaño del conjunto A
+    FINMIENTRAS                                                             _________________________________________|
+    nodo <- otroConjunto.lista.primero                                      ---> O(1)
+    MIENTRAS nodo <> nulo HACER                                             _________________________________________
+        conjunto.lista.insertar(nuevo Nodo(nodo.etiqueta, nodo.dato));        ---> O(M) - M = tamaño de conjunto C   |
+        nodo <- nodo.siguiente                                                ---> O(1)                              | -->  O(N*M) - N = tamaño del conjunto B
+    FINMIENTRAS                                                             _________________________________________|
+    devolver conjunto                                                         ---> O(1)
+FIN
+                                         ---> La funcion es orden O(N*M) + O(N*M) = O(N*M) = O(N^2)
+
+
+
+LN: Dados dos conjuntos A y B y un nuevo conjunto C, se recorre A y para cada elemento de A se verifica si está presente en B,
+    en ese caso, se agrega el elemento a C.
+PRECONDICION: * Debe existir el conjunto A.
+              * Debe existir el conjunto B.
+POSTCONDICIONES: * Los conjuntos A y B permanecen sin modificaciones.
+                 * La cantidad de elementos de C es igual o menor a la cantidad de elementos de A o B.
+
+funcion interseccion(otroConjunto): Conjunto
+COM
+    Conjunto conjunto <- nuevo Conjunto                                     ---> O(1)
+    Nodo nodo <- this.lista.primero                                         ---> O(1)
+    MIENTRAS nodo <> nulo HACER                                             ________________________________________________________________________________________ 
+        Nodo otroNodo <- otroConjunto.lista.primero                           ---> O(1=)                                                                            |
+        MIENTRAS otroNodo <> nulo HACER                                       __________________________________________                                            |
+            SI otroNodo.etiqueta == nodo.etiqueta ENTONCES                      ---> O(1)                               |                                           |
+                conjunto.lista.insertar(Nuevo Nodo(nodo.etiqueta, nodo.dato))     ---> O(M) - M = tamaño de conjunto C  |                                           |
+            FINSI                                                                                                       | ---> O(L*M) - L = tamaño de conjunto B    |  ---> O((N^2)*M) - M = tamaño de conjunto A
+            otroNodo <- otroNodo.siguiente                                      ---> O(1)                               |           = O(N^2)                        |                = O(N^3)
+        FINMIENTRAS                                                           __________________________________________|                                           |
+        nodo <- nodo.siguiente                                                ---> O(1)                                                                             |
+    FINMIENTRAS                                                             ________________________________________________________________________________________|
+    devolver conjunto                                                       ---> O(1)
+FIN
+                                          ---> La funcion es O(N^3)
