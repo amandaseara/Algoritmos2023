@@ -1,0 +1,125 @@
+     
+                   ARBOL:
+
+    private TNodoTrieTelefonos raiz;
+    
+    public TArbolTrieTelefonos(){
+        this.raiz = null;
+    }
+
+                    NODO:
+
+    private static final int CANT_CHR_ABECEDARIO = 10;
+    private TNodoTrieTelefonos[] hijos;
+    private boolean esAbonado;
+    private TAbonado abonado;
+
+    public TNodoTrieTelefonos() {
+        this.hijos = new TNodoTrieTelefonos[CANT_CHR_ABECEDARIO];
+        this.esAbonado = false;
+    }
+
+
+
+
+///////////////////////////////INSERTAR/////////////////////////////////////////
+
+                                ARBOL:
+
+    funcion insertar(unAbonado):
+    COM
+        SI raiz = nulo ENTONCES
+            raiz <- nuevo NodoTrieTelefonos
+        FINSI
+        raiz.insertar(unAbonado)
+    FIN
+
+                                NODO:
+
+    funcion insertar(unAbonado):
+    COM
+        NodoTrieTelefonos nodo <- this
+        numero <- unAbonado.telefono
+
+        PARACADA caracter c en numero HACER
+            indice = numero[c] - 'a'
+
+            SI indice >= 0 Y indice < 11 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    nodo.hijos[indice] <- nuevo NodoTrieTelefonos
+                FINSI
+                nodo <- nodo.hijos[indice]
+            FINSI           
+        FINPARACADA
+
+        nodo.esAbonado = verdad
+        nodo.abonado <- unAbonado
+    FIN
+
+
+
+
+////////////////////////////BUSCARTELEFONOS/////////////////////////////////////
+
+                                ARBOL:
+
+    funcion buscarTelefonos(pais, area): Lista de abonados
+    COM
+        Lista abonados <- nueva Lista
+        SI raiz <> nulo ENTONCES
+            this.raiz.buscarTelefonos(pais+area, abonados)
+        FINSI
+        devolver abonados
+    FIN
+
+                                NODO:
+
+    funcion buscarTelefonos(primerosDigitos, Lista abonados):
+    COM
+        predecir(primerosDigitos, abonados)
+    FIN
+    
+    funcion buscarNodoTrie(s): NodoTrieTelefonos
+    COM
+        NodoTrieTelefonos nodo <- this
+
+        PARACADA caracter c en s HACER
+            Entero indice <- s - 'a'
+
+            SI indice >= 0 Y indice < 11 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    devolver nulo
+                FINSI
+                nodo <- nodo.hijos[indice]
+            FINSI
+        FINPARACADA
+
+        devolver nodo
+    FIN
+
+    funcion predecirAux(s, Lista abonados, nodo):
+    COM
+        SI nodo <> nulo ENTONCES
+            SI nodo.esAbonado ENTONCES
+                abonados.agregar(buscarNodoTrie(s).abonado)
+            FINSI
+
+            PARACADA indice c en el arreglo hijos HACER
+                SI c = 10 ENTONCES
+                    SI nodo.hijos[c] <> nulo ENTONCES
+                        predecirAux(s + ".", abonados, nodo.hijos[c])
+                    FINSI
+                FINSI
+
+                SI nodo.hijos[c] <> nulo ENTONCES
+                    predecirAux(s + c, abonados, nodo.hijos[c])
+                FINSI
+            FINPARACADA
+        FINSI
+    FIN
+
+    funcion predecir(prefijo, Lista abonados):
+    COM
+        NodoTrieTelefonos actual <- this.buscarNodoTrie(prefijo)
+        predecirAux(prefijo, abonados, actual)
+    FIN
