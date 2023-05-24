@@ -1,0 +1,50 @@
+#EJERCICIO 2
+
+ESCENARIO:
+    Estos ejercicios tratan del desarrollo de algoritmos en seudocódigo y análisis del tiempo de 
+    ejecución correspondiente para el TDA ArbolBinarioBusqueda – TArbolBB- (y el 
+    correspondiente TDA NodoArbolBinariobBusqueda – TElementoAB).
+
+Desarrolla un algoritmo (ambas partes, método de Arbol y método de Nodo), para contar 
+todas las hojas que tiene el Árbol.
+De acuerdo a los lineamientos para desarrollo de algoritmos en seudocódigo presentados en 
+clase, deberás desarrollar:
+1. Descripción en lenguaje natural del algoritmo solicitado
+2. Identificación de precondiciones y postcondiciones correspondientes
+3. Escritura del algoritmo en seudocódigo formal
+4. Análisis detallado del orden del tiempo de ejecución del algoritmo
+
+RESPUESTA:
+
+LN: Se verifica si la raiz del arbol apunta a nulo, si es asi, se devuelve el valor 0, si no lo es, se llama a la funcion
+cantidadHojas de la clase nodo.
+Precondiciones: Debe existir el arbol.
+Postcondiciones: El arbol no se modifica y se retorna un integer con la cantidad de hojas.
+funsion entero cantidadHojas()
+COM                                                 _
+    SI (raiz == nulo) HACER          ---> O(1)       |
+        devolver 0                      ---> O(1)    |   ---> O(2N)      
+    SINO                                             |
+        devolver raiz.cantidadHojas()   ---> O(2N)  _|     
+    FINSI
+FIN
+
+LN: Creo un contador, verifico si estoy parada en una hoja, si es asi, devuelvo 1. Veridico si tengo hijoIzq, si lo tengo
+al contador le sumo la llamada recursiva de cantidadHojas del hijoIzq. Varifico si tengo hijoDer, si lo tengo, le sumo al
+contador la llamada recursiva de cantidadHojas del hijoDer. Devuelvo el contador final.
+Precondiciones: Debe existir el arbol y no ser vacio.
+Postcondiciones: El arbol no se modifica y se devuelve un integer con la cantidad de hojas.
+funcion entero cantidadHojas()
+COM                                                                _
+    entero cantidad <- 0                             ---> O(1)      |
+    SI (hijoIzq == nulo && hijoDer == nulo) HACER    ---> O(1)      |
+        devolver 1                                      ---> O(1)   |
+    FINSI                                                           |
+    SI (hijoIzq <> nulo) HACER                       ---> O(1)      |
+        cantidad += hijoIzq.cantidadHojas()             ---> O(N)   |   ---> O(2N)
+    FINSI                                                           |
+    SI (hijoDer <> nulo) HACER                       ---> O(1)      |
+        cantidad += hijoDer.cantidadHojas()             ---> O(N)   |
+    FINSI                                                           |
+    devolver cantidad                                ---> O(1)     _|
+FIN

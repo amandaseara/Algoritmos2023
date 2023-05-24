@@ -1,0 +1,40 @@
+#EJERCICIO 5.1
+
+Contexto: En ocasiones es necesario buscar cierto elemento de un árbol binario de búsqueda 
+por un atributo que no es con el que se armó el árbol, por ejemplo, el árbol se armó por 
+nombre y se necesita buscar por cédula. En este caso no se puede aplicar el algoritmo de 
+búsqueda por comparación de claves, sino que debe recorrerse el árbol en una búsqueda 
+secuencial, resultando en un orden de búsqueda lineal.
+
+Desarrollar el siguiente algoritmo:
+    encuentraLinealUno(nombreAtributo, valorAtributo): devuelve verdadero si hay un nodo con 
+    ese valor del atributo indicado, y falso en caso contrario.
+
+¿Cuántas comparaciones se realizan si el valor del atributo buscado tiene está en el nodo de 
+etiqueta igual a 1?
+
+RESPUESTA:
+
+LN:
+PRECONDICIONES:
+POSTCONDICIONES:
+
+    funcion encuentraLinealUno(nombreAtributo, valorAtributo): valor de verdad
+    COM
+        SI this.nombreAtributo = valorAtributo ENTONCES
+            devolver verdadero
+        FINSI
+
+        SI hijoIzq != null ENTONCES
+            hijoIzq.encuentraLinealUno(nombreAtributo, valorAtributo)
+        FINSI
+
+        SI hijoDer != null ENTONCES
+            hijoDer.encuentraLinealUno(nombreAtributo, valorAtributo)
+        FINSI
+
+        devolver falso
+    FIN
+
+
+Para llegar al 1: Se realizan 3 comparaciones.

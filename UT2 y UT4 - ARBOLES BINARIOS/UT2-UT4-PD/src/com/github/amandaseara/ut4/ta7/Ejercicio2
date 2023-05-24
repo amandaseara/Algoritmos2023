@@ -1,0 +1,18 @@
+#EJERCICIO 2
+
+De tipo entero TipoElementoAB.algoritmoDos()
+Comienzo
+    x  0; y  0;
+    Si (hijoIzquierdo = nulo y hijoDerecho = nulo) entonces
+        Devolver 0
+    Fin si
+    Si hijoIzquierdo <> nulo entonces
+        x hijoIzquierdo.algoritmoDos()
+    fin si
+    Si hijoDerecho <> nulo entonces
+        y  hijoDerecho.algoritmoDos()
+    fin si
+    devolver x+y+1
+Fin
+
+RESULTADO: 21 

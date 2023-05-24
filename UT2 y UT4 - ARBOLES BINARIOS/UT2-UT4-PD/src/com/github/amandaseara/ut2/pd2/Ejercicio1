@@ -1,0 +1,36 @@
+#EJERCICIO 1
+
+1. Desarrolla en seudocódigo, en forma recursiva, un algoritmo para calcular el factorial de un cierto número 
+entero que se pasa como parámetro. 
+• Identifica claramente el caso base y la sentencia que lo contempla.
+• ¿Puedes verificar que siempre el algoritmo progresará hacia el caso base?
+
+RESPUESTA:
+public static int factorial(n de tipo entero)
+COM
+    res <- 1
+    SI (n>0)                            -> El caso base es que n sea 0, en ese caso no hay recursividad y se devuelve 1
+        res = n * factorial(n-1);
+    FINSI
+    devolver res;
+FIN
+
+2. Analiza el orden del tiempo de ejecución del algoritmo.
+
+RESPUESTA:
+public static int factorial(n de tipo entero)
+COM                                                    _
+    res <- 1                          ---> O(1)         |
+    SI (n>0)                          ---> O(1)         |
+        res = n * factorial(n-1);          ---> O(n)    |  ---> O(n)
+    SINO                                                |
+        res = 0;                           ---> O(1)    |
+    FINSI                                               |
+    devolver res;                     ---> O(1)        _|
+FIN
+
+3. Implementa el algoritmo (en JAVA) y pruébalo:
+• ¿Qué sucede si el número es negativo?
+• Verifica que factorial(4), factorial(5), y factorial(0) produzcan los resultados
+
+RESPUESTA: en la clase Factorial

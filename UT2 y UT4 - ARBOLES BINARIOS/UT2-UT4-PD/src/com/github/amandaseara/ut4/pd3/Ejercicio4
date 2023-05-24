@@ -1,0 +1,50 @@
+#EJERCICIO 4
+
+ESCENARIO:
+    Estos ejercicios tratan del desarrollo de algoritmos en seudocódigo y análisis del tiempo de 
+    ejecución correspondiente para el TDA ArbolBinarioBusqueda – TArbolBB- (y el 
+    correspondiente TDA NodoArbolBinariobBusqueda – TElementoAB).
+
+Desarrolla un algoritmo que, recibiendo como parámetro un entero que indica un cierto nivel, 
+devuelva la cantidad de nodos del árbol que se encuentran en dicho nivel.
+De acuerdo a los lineamientos para desarrollo de algoritmos en seudocódigo presentados en 
+clase, deberás desarrollar:
+1. Descripción en lenguaje natural del algoritmo solicitado
+2. Identificación de precondiciones y postcondiciones correspondientes
+3. Escritura del algoritmo en seudocódigo formal
+4. Análisis detallado del orden del tiempo de ejecución del algoritmo
+
+RESPUESTA:
+
+LN: Se verifica si la raiz del arbol apunta a nulo, si es asi, se devuelve el valor 0, si no lo es, se llama a la funcion
+nodosNivel de la clase nodo.
+Precondiciones: Debe existir el arbol.
+Postcondiciones: El arbol no se modifica y se retorna un integer con la cantidad de nodos en el nivel.
+funcion entero nodosNivel(Entero nivel)
+COM                                                   _
+    SI (raiz == nulo) HACER            ---> O(1)       |
+        devolver 0                        ---> O(1)    |    ---> O(2N)
+    SINO                                               |
+        devolver raiz.nodosNivel()      ---> O(2N)  _|
+FIN
+
+LN: Si el nivel pasado por parametro es igual a 0, se devuelve el entero 1(la raiz). Luego se crea inicializa un contador en
+cero, si el nodo en el que estoy parado tiene hijoIzq se le suma al contador la llamada recursiva de nodosNivel(nivel-1) del
+hijoIzq. Si el nodo en el que estoy parado tiene hijoDer se le suma al contador la llamada recursiva de nodosNivel(nivel-1) del
+hijoDer. Se devuelve el contador final.
+Precondiciones: Debe existir el arbol y no ser vacio.
+Postcondiciones: El arbol no se modifica y se devuelve un integer con la cantidad de nodos en el nivel pasado por parametro.
+funcion entero nodosNivel(Entero nivel):
+COM                                                                _
+    SI (nivel == 0) HACER                          ---> O(1)        |
+        devolver 1                                    ---> O(1)     |
+    FINSI                                                           |
+    entero cantidad <- 0                           ---> O(1)        |
+    SI (hijoIzq <> nulo) HACER                        ---> O(1)     |  ---> O(2N)
+        cantidad += hijoIzq.nodosNivel(nivel-1)        ---> O(N)    |
+    FINSI                                                           |
+    SI (hijoDer <> nulo) HACER                     ---> O(1)        |
+        cantidad += hijoDer.nodosNivel(-1)          ---> O(N)       |
+    FINSI                                                           |
+    devolver cantidad                              ---> O(1)       _|
+FIN

@@ -1,0 +1,38 @@
+#EJERCICIO 4
+
+1. Desarrolla en seudocódigo, en forma recursiva, un algoritmo para invertir los componentes de un vector 
+pasado por parámetro, entre dos índices indicados también pasados como parámetros. (ver la ppt de clase 
+sobre recursividad).
+• Identifica claramente el / los caso(s) base y la(s) sentencia(s) que lo contempla(n).
+• ¿Puedes verificar que siempre el algoritmo progresará hacia el caso base?
+
+RESPUESTA:
+/* Se le debe pasar como parametro el vector que queremos invertir y una copia del mismo*/
+public satatic void invertir( int[] a, int[] copiaA, int izq, int der)
+COM
+    SI (izq < der)                ---> El caso base es cuando izq es mayor a der, en ese caso todos los numeros ya han sido invertidos y no es necesario hacer ningun otro paso ni llamar a la recursividad.
+        copiaA[izq] = a[der]
+        izq++;
+        der--;
+        invertir(a,copiaA,izq,der)
+    FINSI
+FIN
+
+2. Analiza el orden del tiempo de ejecución del algoritmo.
+
+RESPUESTA:
+public satatic void invertir( int[] a, int[] copiaA, int izq, int der)
+COM                                             _
+    SI (izq < der)                ---> O(1)      |
+        copiaA[izq] = a[der]         ---> O(1)   |
+        izq++;                       ---> O(1)   |  ---> O(n/2)
+        der--;                       ---> O(1)   |
+        invertir(a,copiaA,izq,der)   ---> O(n/2) |
+    FINSI                                       _|
+FIN
+
+3. Implementa el algoritmo (en JAVA) y pruébalo:
+• Crea un pequeño vector y prueba el algoritmo. Prueba situaciones de borde (extremos), parámetros 
+fuera de rango, vector vacío, vector con sólo un elemento, etc.
+
+RESPUESTA: en la clase InvertirVector
