@@ -1,0 +1,310 @@
+//////////////////////////////GRAFONODIRIGIDO/////////////////////////////////////
+class TGrafoNoDirigido extends TGrafoDirigido implements IGrafoNoDirigido {
+
+protected TAristas lasAristas = new TAristas();
+
+/**
+ *
+ * @param vertices
+ * @param aristas
+ */
+public TGrafoNoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
+    super(vertices, aristas);
+    lasAristas.insertarAmbosSentidos(aristas);
+
+}
+
+//////////////////////////////GRAFODIRIGIDO/////////////////////////////////////
+
+private Map<Comparable, TVertice> vertices; // vertices del grafo.-
+
+public TGrafoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
+    this.vertices = new HashMap<>();
+    for (TVertice vertice : vertices) {
+        insertarVertice(vertice.getEtiqueta());
+    }
+    for (TArista arista : aristas) {
+        insertarArista(arista);
+    }
+}
+
+/////////////////////////////////VERTICE////////////////////////////////////////
+
+private final Comparable etiqueta;
+private LinkedList<TAdyacencia> adyacentes;
+private boolean visitado;
+private T datos;
+private int numBp;
+private int numBajo;
+
+public TVertice(Comparable unaEtiqueta) {
+    this.etiqueta = unaEtiqueta;
+    adyacentes = new LinkedList();
+    visitado = false;
+}
+
+
+
+
+/////////////////////////////INSERTARARISTA/////////////////////////////////////
+
+                            TGrafoNoDirigido:
+
+funcion insertarArista(arista): Valor de verdad
+COM
+    arInv = Nueva Arista(arista.etiquetaDestino, arista.etiquetaOrigen, arista.costo)
+    ValorDeVerdad insertado <- super.insertarArista(arista) Y super.insertarArista(arInv)
+    devolver insertado
+FIN
+
+
+
+
+//////////////////////////////////PRIM//////////////////////////////////////////
+
+                            TGrafoNoDirigido:
+
+funcion Prim(): GrafoNoDirigido
+COM
+    SI NO esConexo() ENTONCES
+        imprimir("El grafo no es conexo! No se puede aplicar PRIM");
+        devolver this
+    FINSI
+
+    Lista vertices <- this.vertices.copia
+
+    //El nuevo grafo, con los mismos vertices pero un nuevo conjunto de aristas
+    grafo <- Nuevo GrafoNoDirigido(vertices, Nueva Aristas);
+
+    etiquetaOrigen <- vertices.primero
+    vertices.remover(etiquetaOrigen)
+    Lista origen <- Nueva Lista
+    origen.agregar(etiquetaOrigen)
+
+    MIENTRAS NO vertices.esVacia HACER
+        //Busca la arista de menor costo
+        aristaMin <- lasAristas.buscarMin(origen, vertices)
+        arista <- Nueva Arista(aristaMin.etiquetaOrigen,aristaMin.etiquetaDestino,aristaMin.costo)
+        grafo.insertarArista(arista)
+        etiquetaDestino  <- arista.etiquetaDestino
+        origen.remover(etiquetaOrigen)
+        origen.agregar(etiquetaDestino)
+        vertices.remover(etiquetaDestino)
+    FINMIENTRAS
+    devolver grafo
+FIN
+
+funcion esConexo(): Valor de verdad
+COM
+    devolver bea().contieneTodos(vertices.etiquetas)
+FIN
+
+funcion insertarArista(arista): Valor de verdad
+COM
+    arInv = Nueva Arista(arista.etiquetaDestino, arista.etiquetaOrigen, arista.costo)
+    ValorDeVerdad insertado <- super.insertarArista(arista) Y super.insertarArista(arInv)
+    devolver insertado
+FIN
+
+                                TAristas:
+
+funcion buscarMin(Lista VerticesU, Lista VerticesV): Arista
+COM
+    Arista min <- nulo
+    PARACADA etiqueta etiqU en VerticesU HACER
+        PARACADA etiqueta etiqV en VerticesV HACER
+            Arista buscar = buscar(etiqU, etiqV)
+            SI buscar <> nulo Y (min = nulo O min.costo > buscar.costo) ENTONCES
+                min <- buscar
+            FINSI
+        FINPARACADA
+    FINPARACADA
+
+    devolver min
+FIN
+
+public TArista buscar(Comparable etOrigen, Comparable etDestino) {
+    return this.stream()
+            .filter(tArista -> tArista.getEtiquetaOrigen().compareTo(etOrigen) == 0
+                    && tArista.getEtiquetaDestino().compareTo(etDestino) == 0)
+            .findAny()
+            .orElse(null);
+}
+
+
+
+
+//////////////////////////////////KRUSKAL///////////////////////////////////////
+
+                            TGrafoNoDirigido:
+
+funcion Kruskal(): GrafoNoDirigido
+COM
+    Lista verertices <- vertices.copia
+
+    grafo <- Nuevo GrafoNoDirigido(vertices, Nuevo Aristas)
+
+    Aristas aristas <- this.lasAristas.copia
+    aristas.ordenarPorCosto()
+
+    PARA CADA Arista arista en aristas HACER
+        origen <- grafo.vertices.get(arista.etiquetaOrigen)
+        destino <- grafo.vertices.get(arista.etiquetaDestino)
+        SI NO grafo.conectados(origen, destino) ENTONCES
+            grafo.insertarArista(arista)
+        FINSI
+    FINPARACADA
+
+    devolver grafo
+FIN
+
+funcion insertarArista(arista): Valor de verdad
+COM
+    arInv = Nueva Arista(arista.etiquetaDestino, arista.etiquetaOrigen, arista.costo)
+    ValorDeVerdad insertado <- super.insertarArista(arista) Y super.insertarArista(arInv)
+    devolver insertado
+FIN
+
+                                TGrafoDirigido:
+
+funcion conectados(Vertice u, Vertice v): Valor de verdad
+COM
+    desvisitarVertices()
+    SI this.existeVertice(u.etiqueta) Y this.existeVertice(v.etiqueta) ENTONCES
+        devolver this.buscarVertice(u.etiqueta).conectadoCon(v)
+    FINSI
+    devolver falso
+FIN
+
+                                    Vertice:
+
+funcion conectadoCon(Vertice destino): Valor de verdad
+COM
+    SI this.etiqueta = destino.etiqueta ENTONCES
+        devolver verdad
+    FINSI
+
+    this.visitado <- verdad
+    PARACADA Adyacencia adyacencia en adyacentes HACER
+        verticeAdyacente <- adyacencia.destino
+        SI NO verticeAdyacente.visitado ENTONCES
+            SI verticeAdyacente.conectadoCon(destino) ENTONCES
+                devolver verdad
+            FINSI
+        FINSI
+    FINPARACADA
+
+    devolver falso
+FIN
+
+                                    Arista:
+
+public void ordenarPorCosto(){
+    this.sort((arista1, arista2) -> Double.compare(
+            arista1.getCosto(), arista2.getCosto()));
+}
+
+
+
+
+/////////////////////////////////BEA////////////////////////////////////////////
+
+                            TGrafoNoDirigido:
+
+funcion bea(etiquetaOrigen): ListaVertices
+COM
+    Lista res <- Nueva Lista
+    desvisitarVertices()
+    SI this.vertices.contieneA(etiquetaOrigen) ENTONCES
+        this.vertices.etiquetaOrigen.bea(res)
+    FINSI
+    devolver res
+FIN
+
+                                TVertice:
+
+funcion bea(Lista visitados):
+COM
+    this.visitado <- verdad
+    Cola cola <- Nueva Lista
+    cola.agregar(this)
+    visitados.agregar(this)
+    MIENTRAS NO cola.esVacia HACER
+        vertice <- cola.removerPrimero
+        Lista Adyacentes <- vertice.adyacentes
+        PARACADA Adyacencia ad en Adyacentes HACER
+            Vertice destino <- ad.destino
+            SI NO destino.visitado ENTONCES
+                destino.visitado <- verdad
+                cola.agregar(destino)
+                visitados.agregar(destino)
+            FINSI
+        FINPARACADA
+    FINMIENTRAS
+FIN
+
+
+
+
+///////////////////////////PUNTOSDEARTICULACION/////////////////////////////////
+
+                            TGrafoNoDirigido:
+
+funcion puntosArticulacion(etOrigen): ListaVertices
+COM
+    Lista verticesArticulacion <- Nueva Lista
+    desvisitarVertices()
+    Vertice vertice <- this.vertices.get(etOrigen)
+
+    SI vertice <> nulo ENTONCES
+        vertice.puntosArticulacion(verticesArticulacion, 1)
+    FINSI
+
+    devolver verticesArticulacion
+FIN
+
+                                TVertice:
+
+funcion puntosArticulacion(Lista verticesArticulacion, Entero prof):
+COM
+    prof++
+    this.numBp = prof
+    this.numBajo = prof
+
+    Lista hijos <- Nueva Lista
+    PARACADA adyacencia adyacencia en this.adyacentes HACER
+        adyacente <- adyacencia.destino
+
+        SI NO adyacente.visitado() ENTONCES
+            adyacente.puntosArticulacion(verticesArticulacion, prof)
+            hijos.agregar(adyacente)
+            this.numBajo <- MINIMO(this.numBajo, adyacente.numBajo)
+        SINO
+            this.numBajo <- MINIMO(this.numBajo, adyacente.numBp)
+        FINSI
+    FINPARACADA
+
+    SI this.numBp > 1 ENTONCES
+        PARACADA Vertice hijo en hijos HACER
+            SI hijo.numBajo >= this.numBp ENTONCES
+                verticesArticulacion.agregar(this)
+            FINSI
+        FINPARACADA
+    SINO
+        SI hijos.tamaño > 1 ENTONCES
+            verticesArticulacion.agregar(this)
+        FINSI
+    FINSI
+FIN
+
+
+
+
+//////////////////////////////////ESCONEXO//////////////////////////////////////
+
+                            TGrafoNoDirigido:
+
+funcion esConexo(): Valor de verdad
+COM
+    devolver bea().contieneTodos(vertices.etiquetas)
+FIN
