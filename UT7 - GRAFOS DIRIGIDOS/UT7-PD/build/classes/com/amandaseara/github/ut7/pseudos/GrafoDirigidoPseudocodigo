@@ -1,0 +1,918 @@
+EJERCICIO 1
+
+d) Escribe un algoritmo para, dado el vector de predecesores, imprimir el camino entre el vértice origen y un 
+vértice destino indicado como parámetro
+
+funcion imprimirCamino (predecesores de tipo vector, origen de tipo entero, destino de tipo entero)
+COM
+    indice <- destino
+    texto resultado <- Nuevo texto vacio
+    MIENTRAS indice <> origen HACER
+        resultado <- vector[indice] + resultado
+        indice <- vector[indice]
+    FINMIENTRAS
+    imprimir resultado
+FIN
+
+
+
+
+//////////////////////////////GRAFODIRIGIDO/////////////////////////////////////
+
+private Map<Comparable, TVertice> vertices; // vertices del grafo.-
+
+public TGrafoDirigido(Collection<TVertice> vertices, Collection<TArista> aristas) {
+    this.vertices = new HashMap<>();
+    for (TVertice vertice : vertices) {
+        insertarVertice(vertice.getEtiqueta());
+    }
+    for (TArista arista : aristas) {
+        insertarArista(arista);
+    }
+}
+
+/////////////////////////////////VERTICE////////////////////////////////////////
+
+private final Comparable etiqueta;
+private LinkedList<TAdyacencia> adyacentes;
+private boolean visitado;
+private T datos;
+private int numBp;
+private int numBajo;
+
+public TVertice(Comparable unaEtiqueta) {
+    this.etiqueta = unaEtiqueta;
+    adyacentes = new LinkedList();
+    visitado = false;
+}
+
+
+
+
+////////////////////////////ELIMINARARISTA//////////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion eliminarArista(nomVerticeOrigen, nomVerticeDestino): Valor de verdad
+COM
+    SI nomVerticeOrigen <> nulo Y nomVerticeDestino <> nulo ENTONCES
+        Vertice vertOrigen <- buscarVertice(nomVerticeOrigen)
+        SI vertOrigen <> nulo ENTONCES
+            devolver vertOrigen.eliminarAdyacencia(nomVerticeDestino)
+        FINSI
+    FINSI
+    devolver falso
+FIN
+
+funcion buscarVertice(unaEtiqueta): Vertice
+COM
+    devolver getVertices().get(unaEtiqueta)
+FIN
+
+                                Vertice:
+
+funcion eliminarAdyacencia(nomVerticeDestino): Valor de verdad
+COM
+    Adyacencia ady <- buscarAdyacencia(nomVerticeDestino)
+    SI ady <> nulo ENTONCES
+        adyacentes.remove(ady)
+        devolver verdad
+    FINSI
+
+    devolver falso
+FIN
+
+funcion buscarAdyacencia(verticeDestino): Adyacencia
+COM
+    SI verticeDestino <> nulo ENTONCES
+        devolver buscarAdyacencia(verticeDestino)
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+//////////////////////////////EXISTEARISTA//////////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion existeArista(etiquetaOrigen, etiquetaDestino): Valor de verdad
+COM
+    vertOrigen <- buscarVertice(etiquetaOrigen)
+    vertDestino <- buscarVertice(etiquetaDestino)
+
+    SI vertOrigen <> nulo Y vertDestino <> nulo ENTONCES
+        devolver vertOrigen.buscarAdyacencia(vertDestino) <> nulo
+    FINSI
+    devolver falso
+FIN
+
+funcion buscarVertice(unaEtiqueta): Vertice
+COM
+    devolver getVertices().get(unaEtiqueta)
+FIN
+
+                                Vertice:
+
+funion buscarAdyacencia(verticeDestino): Adyacencia
+COM
+    SI verticeDestino <> nulo ENTONCES
+        devolver buscarAdyacencia(verticeDestino)
+    FINSI
+    devolver nulo
+FIN
+
+funcion buscarAdyacencia(verticeDestino): Adyacencia
+COM
+    SI verticeDestino <> nulo ENTONCES
+        devolver buscarAdyacencia(verticeDestino)
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+/////////////////////////////EXISTEVERTICE//////////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion existeVertice(unaEtiqueta): Valor de verdad
+COM
+    devolver getVertices().get(unaEtiqueta) <> nulo
+FIN
+
+
+
+
+//////////////////////////////BUSCARVERTICE/////////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion buscarVertice(unaEtiqueta): Vertice
+COM
+    devolver getVertices().get(unaEtiqueta)
+FIN
+
+
+
+
+//////////////////////////////BUSCARADYACENCIA//////////////////////////////////
+
+                                Vertice:
+
+funion buscarAdyacencia(verticeDestino): Adyacencia
+COM
+    SI verticeDestino <> nulo ENTONCES
+        devolver buscarAdyacencia(verticeDestino)
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+//////////////////////////////INSERTARARISTA////////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion insertarArista(arista): Valor de verdad
+COM
+    SI arista.etiquetaOrigen <> nulo Y arista.etiquetaDestino <> nulo ENTONCES
+        vertOrigen <- buscarVertice(arista.etiquetaOrigen)
+        vertDestino <- buscarVertice(arista.etiquetaDestino)
+        SI vertOrigen <> nulo Y vertDestino <> nulo ENTONCES
+            devolver vertOrigen.insertarAdyacencia(arista.costo, vertDestino)
+        FINSI
+    FINSI
+    devolver falso
+FIN
+
+funcion buscarVertice(unaEtiqueta): Vertice
+COM
+    devolver getVertices().get(unaEtiqueta)
+FIN
+
+                                Vertice:
+
+funcion insertarAdyacencia(costo, verticeDestino): Valor de verdad
+COM
+    SI buscarAdyacencia(verticeDestino) <> nulo ENTONCES
+        Adyacencia ady - NUEVO Adyacencia(costo, verticeDestino)
+        devolver adyacentes.agregar(ady)
+    FINSI
+    devolver falso
+FIN
+
+funion buscarAdyacencia(verticeDestino): Adyacencia
+COM
+    SI verticeDestino <> nulo ENTONCES
+        devolver buscarAdyacencia(verticeDestino)
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+///////////////////////////////INSERTARVERTICE//////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion insertarVertice(unaEtiqueta): Valor de verdad
+COM
+    SI unaEtiqueta <> nulo Y NO existeVertice(unaEtiqueta) ENTONCES
+        Vertice vert <- Nuevo Vertice(unaEtiqueta)
+        this.vertices.agregar(unaEtiqueta, vert)
+        devolver this.vertices.contiene(unaEtiqueta)
+    FINSI
+    devolver falso
+FIN
+
+funcion existeVertice(unaEtiqueta): Valor de verdad
+COM
+    devolver getVertices().get(unaEtiqueta) <> nulo
+FIN
+
+                                TVertice:
+
+funcion insertarVertice(vertice): Valor de verdad
+COM
+    unaEtiqueta = vertice.etiqueta
+    SI unaEtiqueta <> nulo Y NO existeVertice(unaEtiqueta) ENTONCES
+        this.vertices.agregar(unaEtiqueta, vertice)
+        devolver this.vertices.contiene(unaEtiqueta)
+    FINSI
+    devolver falso
+FIN
+
+
+
+
+////////////////////////////GETETIQUETAORDENADO/////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion getEtiquetasOrdenado(): Object[]
+COM
+    TreeMap<Comparable, TVertice> mapOrdenado <- Nuevo TreeMap<>(this.vertices)
+    devolver mapOrdenado.keySet().toArray();
+FIN
+
+
+
+
+/////////////////////////////CENTRODELGRAFO/////////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion centroDelGrafo(): Comparable
+COM
+    menorExcentricidad <- nulo
+    PARACADA Comprable v en vertices.clave HACER
+        excentricidadDeV <- this.obtenerExcentricidad(v)
+        SI ( menorExcentricidad = null O excentricidadDeV < menorExcentricidad ) Y NO excentricidadDeV = 0.0 ENTONCES
+            menorExcentricidad <- excentricidadDeV
+        FINSI
+    FINPARACADA
+    devolver menorExcentricidad
+FIN
+
+funcion obtenerExcentricidad(etiquetaVertice): Comparable
+COM
+    MatrizDouble a <- this.floyd()
+    cont = 0
+    caminoMasLargo <- 0
+    SI vertices.contiene(etiquetaVertice) ENTONCES
+        PARACADA Comparable v en vertices.claves HACER
+            SI v = etiquetaVertice ENTONCES
+                break
+            FINSI
+            cont++
+        FINPARACADA
+        PARACADA i desde i=0 hasta i<this.vertices.tamaño HACER
+            SI a[i][cont] > caminoMasLargo Y a[i][cont] <> Double.MAX_VALUE ENTONCES
+                caminoMasLargo <- a[i][cont]
+            FINSI
+        FINPARACADA
+        devolver caminoMasLargo
+    FINSI
+    devolver -1 //NO EXISTE EL VÉRTICE
+FIN
+
+
+
+
+////////////////////////////OBTENEREXCENTRICIDAD////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion obtenerExcentricidad(etiquetaVertice): Comparable
+COM
+    MatrizDouble a <- this.floyd()
+    cont = 0
+    caminoMasLargo <- 0
+    SI vertices.contiene(etiquetaVertice) ENTONCES
+        PARACADA Comparable v en vertices.claves HACER
+            SI v = etiquetaVertice ENTONCES
+                break
+            FINSI
+            cont++
+        FINPARACADA
+        PARACADA i desde i=0 hasta i<this.vertices.tamaño HACER
+            SI a[i][cont] > caminoMasLargo Y a[i][cont] <> Double.MAX_VALUE ENTONCES
+                caminoMasLargo <- a[i][cont]
+            FINSI
+        FINPARACADA
+        devolver caminoMasLargo
+    FINSI
+    devolver -1 //NO EXISTE EL VÉRTICE
+FIN
+
+
+
+
+///////////////////////////////////DIJKSTRA/////////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion dijkstra(Comparable etiquetaOrigen): ArregloDeNumeros
+COM
+    verticesAux <- Nueva Lista(getVertices().keySet())
+    verticesAux.remove(etiquetaOrigen);
+
+    Matriz[][] costos = UtilGrafos.obtenerMatrizCostos(vertices)
+    ArregloDeNumeros resultado <- nuevo ArregloDeNumeros[vertices.tamaño];
+
+    Lista s <- Nueva Lista()
+    s.agregar(etiquetaOrigen)
+
+    posOrigen <- obtenerPosicionVertice(etiquetaOrigen)
+    PARACADA posicion i en resultado HACER
+        resultado[i] <- costos[posOrigen][i]
+    FINPARAXADA
+
+    posMin <- Nuevo
+
+    MIENTRAS s.tamaño < vertices.tamaño HACER
+        costoMin <- POSITIVE_INFINITY <- 1.0 / 0.0
+        posMin <- nulo
+        PARACADA vertive i en verticesAux HACER //Encontrar w
+            posicion <- obtenerPosicionVertice(i)
+            SI resultado[posicion] < costoMin ENTONCES
+                costoMin <- resultado[posicion]
+                posMin <- i
+            FINSI
+        FINPARACADA
+
+        s.agregar(posMin) //Agregar w en s
+
+        verticesAux.eliminar(posMin); // Quitar w de V, para que sea V-S
+
+        PARACADA vertice v en verticesAux HACER
+            posicion <- obtenerPosicionVertice(v)
+            w <- obtenerPosicionVertice(posMin)
+            resultado[posicion] <- MINIMO(resultado[posicion], resultado[w] + costos[w][posicion]);
+        FINPARACADA
+    FINMIENTRAS
+
+    devolver resultado
+FIN
+
+funcion obtenerPosicionVertice(etiqueta): Entero
+COM
+    SI NO existeVertice(etiqueta) ENTONCES
+        devolver -1
+    FINSI
+
+    i <- 0
+    PARACADA etiqueta etiq en vertices.copia HACER
+        SI etiq = etiqueta ENTONCES
+            break;
+        FINSI
+        i++
+    FINPARACADA
+
+    devolver i
+FIN
+
+                            UtilGrafos:
+
+public static Double[][] obtenerMatrizCostos(Map<Comparable, TVertice> vertices) {
+    int cantidadVertices = vertices.size();
+    Double[][] matrizCostos = new Double[cantidadVertices][cantidadVertices];
+
+    for (int i = 0; i < matrizCostos.length; i++) {
+        for (int j = 0; j < matrizCostos.length; j++) {
+            if (i == j) {
+                matrizCostos[i][j] = 0.0;
+            } else {
+                matrizCostos[i][j] = Double.MAX_VALUE;
+            }
+        }
+    }
+
+    int i = 0;
+
+    Set<Comparable> etiquetasVertices = vertices.keySet();
+    Object[] VerticesIArr = etiquetasVertices.toArray();
+    Object[] VerticesJArr = etiquetasVertices.toArray();
+
+    while (i < cantidadVertices) {
+        int j = 0;
+        while (j < cantidadVertices) {
+            TVertice elemVerticeI = vertices.get(VerticesIArr[i]);
+            TVertice elemVerticeJ = vertices.get(VerticesJArr[j]);
+
+            if (!elemVerticeI.getEtiqueta().equals(elemVerticeJ.getEtiqueta())) {
+                TVertice verticeI = (TVertice) elemVerticeI;
+                TVertice verticeJ = (TVertice) elemVerticeJ;
+                Double costoAdyacencia = verticeI.obtenerCostoAdyacencia(verticeJ);
+                matrizCostos[i][j] = costoAdyacencia;
+            }
+            j++;
+        }
+        i++;
+    }
+    return matrizCostos;
+}
+
+
+
+
+/////////////////////////////////FLOYD//////////////////////////////////////////
+
+                            TGrafoDirigido:
+
+funcion floyd(): MatrizDeNumeros
+    MatrizDeNumeros a <- UtilGrafos.obtenerMatrizCostos(getVertices())
+    PARACADA k DESDE k = 0 HASTA k < vertice.tamaño HACER
+        PARACADA i DESDE i = 0 HASTA i < vertice.tamaño HACER
+            SI k = i ENTONCES
+                continue
+            FINSI
+            PARACADA j DESDE j = 0 HASTA j < vertices.tamaño HACER
+                SI i = j O j = k ENTONCES
+                    continue
+                FINSI
+
+                SI a[i][k] + a[k][j] < a[i][j] ENTONCES
+                    a[i][j] <- a[i][k] + a[k][j]
+                FINSI
+            PARACADA
+        FINPARACADA
+    FINPARACADA
+        
+    devolver a
+FIN
+
+                            UtilGrafos:
+
+public static Double[][] obtenerMatrizCostos(Map<Comparable, TVertice> vertices) {
+    int cantidadVertices = vertices.size();
+    Double[][] matrizCostos = new Double[cantidadVertices][cantidadVertices];
+
+    for (int i = 0; i < matrizCostos.length; i++) {
+        for (int j = 0; j < matrizCostos.length; j++) {
+            if (i == j) {
+                matrizCostos[i][j] = 0.0;
+            } else {
+                matrizCostos[i][j] = Double.MAX_VALUE;
+            }
+        }
+    }
+
+    int i = 0;
+
+    Set<Comparable> etiquetasVertices = vertices.keySet();
+    Object[] VerticesIArr = etiquetasVertices.toArray();
+    Object[] VerticesJArr = etiquetasVertices.toArray();
+
+    while (i < cantidadVertices) {
+        int j = 0;
+        while (j < cantidadVertices) {
+            TVertice elemVerticeI = vertices.get(VerticesIArr[i]);
+            TVertice elemVerticeJ = vertices.get(VerticesJArr[j]);
+
+            if (!elemVerticeI.getEtiqueta().equals(elemVerticeJ.getEtiqueta())) {
+                TVertice verticeI = (TVertice) elemVerticeI;
+                TVertice verticeJ = (TVertice) elemVerticeJ;
+                Double costoAdyacencia = verticeI.obtenerCostoAdyacencia(verticeJ);
+                matrizCostos[i][j] = costoAdyacencia;
+            }
+            j++;
+        }
+        i++;
+    }
+    return matrizCostos;
+}
+
+
+
+
+//////////////////////////////////WARSHALL//////////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion warshall(): MatrizDeValoresDeVerdad
+COM
+    MatrizNumeros a <- this.floyd()
+    MatrizValorDeVerdad b <- Nueva MatrizValorDeVerdad[vertices.tamaño][vertices.tamaño]
+    PARACADA i DESDE i = 0 HASTA i < b.ancho HACER
+        PARACADA j DESDE j = 0 HASTA j < b.largo HACER
+            ValorDeVerdad conexion <- a[i][j] < Double.MAX_VALUE 
+            b[i][j] <- conexion
+        FINPARACADA
+    FINPARACADA
+    devolver b
+FIN
+
+
+
+
+/////////////////////////////////ESCONEXO///////////////////////////////////////
+
+                                TGrafoDirigido:
+
+//INVENTADO
+funcion esConexo(warshall): ValorDeVerdad
+COM
+    PARACADA i DESDE i = 0 HASTA i - warshall.largo HACER
+        PARACADA j DESDE j = 0 HASTA j < warshal.alto HACER
+            SI warshall[i][j] = falso ENTONCES
+                devolver falso
+            FINSI
+        FINPARACADA
+    FINPARACADA
+
+    devolver verdad
+FIN
+
+funcion esConexo(): ValorDeVerdad
+COM
+    PARACADA vertice v en vertice.valores HACER
+        desvisitarVertices()
+        Lista visitados <- Nueva Lista
+        vertice.bpf(visitados) // Realizar un recorrido en profundidad desde cada vértice
+        SI visitados.tamaño != vertices.tamaño ENTONCES
+            devolver falso // Si no se visitaron todos los vértices, el grafo no es conexo
+        FINSI
+    FINPARACADA
+
+    devolver verdad
+FIN
+
+funcion bpf(Lista visitados):
+COM
+    visitados.agregar(this)
+    this.visitado <- verdad
+
+    PARACADA adyacencia a en this.adyacentes HACER
+        Vertice v <- a.destino
+        SI NO v.visitado ENTONCES
+            v.bpf(visitados)
+        FINSI
+    FINPARACADA
+FIN
+
+
+
+
+//////////////////////////////DESVISITARVERTICES////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion desvisitarVertices():
+COM
+    PARACADA vertice v en this.vertices.valores ENTONCES
+        v.visitado <- falso
+    FINPARACADA
+FIN
+
+
+
+
+////////////////////////////////////BEA/////////////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion bea(): Lista de vertices
+COM
+    desvisitarVertices()
+    Lista visitados <- Nueva Lista
+    PARACADA vertice v en this.vertices.valores ENTONCES
+        SI NO visitados.contieneA(v) ENTONCES
+            v.bea(visitados)
+        FINSI
+    FINPARACADA
+
+    devolver visitados
+FIN
+
+                                    Vertice:
+
+funcion bea(Lista visitados):
+COM
+    this.visitado <- verdadero
+    ColaVertices cola = Nueva ColaVertices
+    cola.agregar(this)
+    visitados.agregar(this)
+    MIENTRAS NO cola.esVacia HACER
+        vertice <- cola.removerPrimero
+        Lista adyacentes <- vertice.adyacentes
+        PARACADA adyacencia ad en adyacentes HACER
+            destino <- ad.destino
+            SI NO destino.visitado ENTONCES
+                destino.visitado <- verdadero
+                cola.agregar(destino)
+                visitados.agregar(destino)
+            FINSI
+        FINPARACADA
+    FINMIENTRAS
+FIN
+
+
+
+
+////////////////////////////////////BPF/////////////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion bpf(): ListaVertices
+COM
+    desvisitarVertices()
+    Lista visitados <- Nueva Lista
+    PARACADA vertice v en this.vertices.valores HACER
+        SI NO visitados.contieneA(v) ENTONCES
+            v.bpf(visitados)
+        FINSI
+    FINPARACADA
+    devolver visitados
+FIN
+
+funcion bpf(etiquetaOrigen): ListaVertices
+COM
+    devolver bpf(this.vertices.etiquetaOrigen)
+FIN
+
+funcion bpf(vertice): ListaVertices
+COM
+    desvisitarVertices()
+    Lista visitados <- Nueva Lista
+    vertice.bpf(visitados)
+    devolver visitados
+FIN
+
+                                    Vertice:
+
+funcion bpf(Lista visitados):
+COM
+    visitados.agregar(this)
+    this.visitado <- verdad
+
+    PARACADA adyacencia a en this.adyacentes HACER
+        Vertice v <- a.destino
+        SI NO v.visitado ENTONCES
+            v.bpf(visitados)
+        FINSI
+    FINPARACADA
+FIN
+
+
+
+
+/////////////////////////////////TODOSLOSCAMINOS////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion todosLosCaminos(etiquetaOrigen, etiquetaDestino): ListaCaminos
+COM
+    desvisitarVertices()
+    SI vertices.contieneA(etiquetaOrigen) ENTONCES
+        verticeOrigen <- this.vertices.etiquetaOrigen
+        devolver verticeOrigen.todosLosCaminos(etiquetaDestino, Nuevo Camino(verticeOrigen), Nueva ListaCaminos)
+    FINSI
+    devolver nulo
+FIN
+
+                                    Vertice:
+
+funcion todosLosCaminos(etVertDest, caminoPrevio, Lista todosLosCaminos): ListaCaminos
+COM
+    this.visitado <- verdadero
+    PARACADA Adyacencia adyacencia en this.adyacentes HACER
+        destino <- adyacencia.destino
+
+        SI NO destino.visitado ENTONCES
+            SI destino.etiqueta = etVertDest ENTONCES
+                copia <- caminoPrevio.copia
+                copia.agregarAdyacencia(adyacencia)
+                todosLosCaminos.caminos.agregar(copia)
+            SINO
+                caminoPrevio.agregarAdyacencia(adyacencia)
+                destino.todosLosCaminos(etVertDest, caminoPrevio, todosLosCaminos)
+            FINSI
+        FINSI
+    FINPARACADA
+    this.visitado <- falso
+    devolver todosLosCaminos
+FIN
+
+
+
+
+///////////////////////////////TIENECICLO///////////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion tieneCiclo(): Valor de verdad
+COM
+    desvisitarVertices()
+    PARACADAA Vertice vertice en this.vertices.valores HACER
+        SI vertice.tieneCiclo() ENTONCES
+            devolver verdad
+        FINSI
+        desvisitarVertices()
+    FINPARACADA
+    devolver falso
+FIN
+
+                                Vertice:
+
+funcion tieneCiclo(): Valor de verdad
+COM
+    this.visitado <- verdad
+    PARACADA Vertece verticeAdy en this.adyacentes HACER
+        SI verticeAdy.visitado ENTONCES
+            devolver verdad
+        FINSI
+        devolver verticeAdy.tieneCiclo()
+    FINPARACADA
+    devolver falso
+FIN
+
+
+
+
+//////////////////////////////CLASIFICACIONTOPOLOGICA///////////////////////////
+
+                                TGrafoDirigido:
+
+funcion clasificacionTopologica(etiquetaVertice): ListaVertices
+COM
+    desvisitarVertices()
+    tVertice <- buscarVertice(etiquetaVertice)
+    ListaVertices res = Nueva ListaVertices
+
+    tVertice.clasificacionTopologica(res)
+
+    devolver res
+FIN
+
+                                    Vertice:
+
+funcion clasificacionTopologica(Lista vertices):
+COM
+    this.visitado <- verdad
+
+    PARACADA adyacencia adyacente en this.adyacentes HACER
+        destino <- adyacente.destino
+        SI NO destino.visitado ENTONCES
+            destino.clasificacionTopologica(vertices)
+        FINSI
+    FINPARACADA
+    vertices.agregar(this)
+FIN
+
+funcion buscarVertice(unaEtiqueta): Vertice
+COM
+    devolver getVertices().get(unaEtiqueta)
+FIN
+
+
+
+
+/////////////////////////////////CONECTADOS/////////////////////////////////////
+
+                                TGrafoDirigido:
+
+funcion conectados(Vertice u, Vertice v): Valor de verdad
+COM
+    desvisitarVertices()
+    SI this.existeVertice(u.etiqueta) Y this.existeVertice(v.etiqueta) ENTONCES
+        devolver this.buscarVertice(u.etiqueta).conectadoCon(v)
+    FINSI
+    devolver falso
+FIN
+
+                                    Vertice:
+
+funcion conectadoCon(Vertice destino): Valor de verdad
+COM
+    SI this.etiqueta = destino.etiqueta ENTONCES
+        devolver verdad
+    FINSI
+
+    this.visitado <- verdad
+    PARACADA Adyacencia adyacencia en adyacentes HACER
+        verticeAdyacente <- adyacencia.destino
+        SI NO verticeAdyacente.visitado ENTONCES
+            SI verticeAdyacente.conectadoCon(destino) ENTONCES
+                devolver verdad
+            FINSI
+        FINSI
+    FINPARACADA
+
+    devolver falso
+FIN
+
+funcion existeVertice(unaEtiqueta): Valor de verdad
+COM
+    devolver getVertices().get(unaEtiqueta) <> nulo
+FIN
+
+
+
+
+//////////////////////////OBTENERCOSTOADYACENCIA////////////////////////////////
+
+                                Vertice:
+
+funcion obtenerCostoAdyacencia(verticeDestino): Numero
+COM
+    ady <- buscarAdyacencia(verticeDestino)
+    SI ady <> nulo ENTONCES
+        devolver ady.costo
+    FINSI
+    devolver Double.MAX_VALUE
+FIN
+
+funcion buscarAdyacencia(verticeDestino): Adyacencia
+COM
+    SI verticeDestino <> nulo ENTONCES
+        devolver buscarAdyacencia(verticeDestino)
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+//////////////////////////////PRIMERADYACENTE///////////////////////////////////
+
+                                Vertice:
+
+funcion primerAdyacente(): Vertice
+COM
+    SI this.adyacentes.primero <> nulo ENTONCES
+        devolver this.adyacentes.primero.destino
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+/////////////////////////////SIGUIENTEADYACENTE/////////////////////////////////
+
+                                Vertice:
+
+funcion siguienteAdyacente(Vertice w): Vertice
+COM
+    adyacente <- buscarAdyacencia(w.etiqueta)
+    index = adyacentes.indexOf(adyacente)
+    SI index + 1 < adyacentes.tamaño ENTONCES
+        devolver adyacentes.get(index + 1).destino
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+//////////////////////////////BUSCARADYACENCIA//////////////////////////////////
+
+                                Vertice:
+
+funcion buscarAdyacencia(verticeDestino): Adyacencia
+COM
+    SI verticeDestino <> nulo ENTONCES
+        devolver buscarAdyacencia(verticeDestino)
+    FINSI
+    devolver nulo
+FIN
+
+
+
+
+////////////////////////////////ELIMINARVERTICE/////////////////////////////////
+
+funcion eliminarVertice(nombreVertice): Valor de verdad
+COM
+    SI nombreVertice <> nulo ENTONCES
+        this.vertices.removerPrimero(nombreVertice)
+        devolver this.vertices.contieneA(nombreVertice)
+    FINSI
+    devolver falso
+FIN

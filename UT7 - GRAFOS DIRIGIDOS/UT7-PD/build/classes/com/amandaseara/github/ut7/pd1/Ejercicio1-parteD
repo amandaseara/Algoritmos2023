@@ -1,0 +1,15 @@
+#EJERCICIO 1
+
+d) Escribe un algoritmo para, dado el vector de predecesores, imprimir el camino entre el vértice origen y un 
+vértice destino indicado como parámetro
+
+funcion imprimirCamino (predecesores de tipo vector, origen de tipo entero, destino de tipo entero)
+COM
+    indice <- destino
+    texto resultado <- Nuevo texto vacio
+    MIENTRAS indice <> origen HACER
+        resultado <- vector[indice] + resultado
+        indice <- vector[indice]
+    FINMIENTRAS
+    imprimir resultado
+FIN
